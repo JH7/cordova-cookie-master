@@ -7,11 +7,11 @@ var cookieMaster = {
                     [url, cookieName]
         );
     },
-    setCookieValue: function (url, cookieName, cookieValue, successCallback, errorCallback) {
+    setCookieValue: function (url, cookieName, cookieValue, expirationDays, successCallback, errorCallback) {
         cordova.exec(successCallback,
                     errorCallback,
                     'CookieMaster', 'setCookieValue',
-                    [url, cookieName, cookieValue]
+                    [url, cookieName, cookieValue, expirationDays]
         );
     },
     clearCookies: function(successCallback, errorCallback) {

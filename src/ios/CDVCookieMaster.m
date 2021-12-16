@@ -49,12 +49,15 @@
     NSString* urlString = [command.arguments objectAtIndex:0];
     NSString* cookieName = [command.arguments objectAtIndex:1];
     NSString* cookieValue = [command.arguments objectAtIndex:2];
+    id expirationDays = [command.arguments objectAtIndex:3];
+    NSDate* cookieDate = [[NSDate date] dateByAddingTimeInterval:60*60*24*[expirationDays integerValue]];
 
     NSMutableDictionary *cookieProperties = [NSMutableDictionary dictionary];
     [cookieProperties setObject:cookieName forKey:NSHTTPCookieName];
     [cookieProperties setObject:cookieValue forKey:NSHTTPCookieValue];
     [cookieProperties setObject:urlString forKey:NSHTTPCookieOriginURL];
     [cookieProperties setObject:@"/" forKey:NSHTTPCookiePath];
+    [cookieProperties setObject:cookieDate forKey:NSHTTPCookieExpires];
 
     NSHTTPCookie *cookie = [NSHTTPCookie cookieWithProperties:cookieProperties];
 

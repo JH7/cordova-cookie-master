@@ -64,11 +64,13 @@ public class CookieMaster extends CordovaPlugin {
             final String url = args.getString(0);
             final String cookieName = args.getString(1);
             final String cookieValue = args.getString(2);
+            final int days = args.getInt(3);
 
             cordova.getThreadPool().execute(new Runnable() {
                 public void run() {
                     try {
                         HttpCookie cookie = new HttpCookie(cookieName, cookieValue);
+                        cookie.setMaxAge(days * 24 * 60 * 60);
 
                         String cookieString = cookie.toString().replace("\"", "");
                         CookieManager cookieManager = CookieManager.getInstance();
