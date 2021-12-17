@@ -31,6 +31,7 @@ public class CookieMaster extends CordovaPlugin {
             cordova.getThreadPool().execute(new Runnable() {
                 public void run() {
                     try {
+
                         CookieManager cookieManager = CookieManager.getInstance();
                         String[] cookies = cookieManager.getCookie(url).split("; ");
                         String cookieValue = "";
@@ -69,10 +70,7 @@ public class CookieMaster extends CordovaPlugin {
             cordova.getThreadPool().execute(new Runnable() {
                 public void run() {
                     try {
-                        HttpCookie cookie = new HttpCookie(cookieName, cookieValue);
-                        cookie.setMaxAge(days * 24 * 60 * 60);
-
-                        String cookieString = cookie.toString().replace("\"", "");
+                        String cookieString = cookieName + "=" + cookieValue + ";max-age=" + Long.toString(days * 24 * 60 * 60) + ";path=/";
                         CookieManager cookieManager = CookieManager.getInstance();
                         cookieManager.setCookie(url, cookieString);
                         cookieManager.flush(); // Sync the cookie to persistent storage.
